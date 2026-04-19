@@ -28,4 +28,4 @@ modules:
       - type: git
         url: https://github.com/LukasYTTT/appinstaller.git
         tag: v1.0.0
-        commit: ac5aba3acc20f392a21e1c502615336f11d970c5
+        commit: 2422f9a3e023f0a1a6c449e19c4ef785b9ff955b
