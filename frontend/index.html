@@ -3,140 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AppImage Manager</title>
+    <title>AppInstall Manager</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="app-container">
-        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo">
-                <span class="icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-box"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-                </span>
-                <h1>AppInstall</h1>
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                </div>
+                <span class="logo-text">AppInstall</span>
             </div>
             <nav>
-                <button id="nav-install" class="active" onclick="showSection('install')">
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                    </span> Installieren
+                <button id="nav-install" class="nav-btn active" onclick="showSection('install', this)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                    Installieren
                 </button>
-                <button id="nav-apps" onclick="showSection('apps')">
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-grid"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
-                    </span> Meine Apps
+                <button id="nav-apps" class="nav-btn" onclick="showSection('apps', this)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+                    Meine Apps
                 </button>
-                <button id="nav-settings" onclick="showSection('settings')">
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
-                    </span> Einstellungen
+                <button id="nav-settings" class="nav-btn" onclick="showSection('settings', this)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Einstellungen
                 </button>
             </nav>
             <div class="sidebar-footer">
-                <p>v2.0.0</p>
+                <span>AppImage Manager</span>
+                <span>v1.0.1</span>
             </div>
         </aside>
 
-        <!-- Main Content -->
         <main class="content">
             <!-- Install Section -->
-            <section id="section-install">
-                <header>
-                    <h2>AppImage Installieren</h2>
-                    <p>Wähle ein AppImage aus, um es in dein System zu integrieren.</p>
+            <section id="section-install" class="section active">
+                <header class="sec-header">
+                    <h2>Systemintegration</h2>
+                    <p>Mache deine AppImages zu vollwertigen Desktop-Anwendungen.</p>
                 </header>
-                
-                <div class="card selector-card" id="drop-zone" onclick="pickFile()">
-                    <div class="selector-content">
-                        <span class="big-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-                        </span>
-                        <p id="selected-file-label">AppImage auswählen oder hierher ziehen</p>
-                        <button class="btn btn-primary">Datei wählen</button>
+
+                <div class="dropzone" id="drop-zone" onclick="pickFile()">
+                    <div class="dz-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
                     </div>
+                    <div class="dz-title" id="selected-file-label">AppImage auswählen</div>
+                    <div class="dz-sub">Klicke hier oder ziehe eine Datei hierher</div>
+                    <button class="btn btn-outline" onclick="event.stopPropagation(); pickFile()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                        Datei suchen
+                    </button>
                 </div>
 
                 <div id="install-form" class="card hidden">
-                    <h3>Anwendungs-Details</h3>
-                    <div class="form-group">
-                        <label for="app-name">Name</label>
-                        <input type="text" id="app-name" placeholder="z.B. Mein AppImage">
+                    <div class="card-header">
+                        <h3>App-Details bearbeiten</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="app-name">App Name</label>
+                            <input type="text" id="app-name" placeholder="z.B. Mein AppImage">
+                        </div>
+                        <div class="form-group">
+                            <label for="app-cats">Kategorien <span class="label-opt">(Optional)</span></label>
+                            <input type="text" id="app-cats" placeholder="Utility, System...">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="app-desc">Beschreibung</label>
-                        <input type="text" id="app-desc" placeholder="Kurze Beschreibung...">
+                        <label for="app-desc">Beschreibung <span class="label-opt">(Optional)</span></label>
+                        <input type="text" id="app-desc" placeholder="Kurze Beschreibung der Anwendung...">
                     </div>
                     <div class="form-group">
-                        <label for="app-cats">Kategorien</label>
-                        <input type="text" id="app-cats" placeholder="Utility,Development...">
-                    </div>
-                    <div class="form-group">
-                        <label for="app-args">Argumente</label>
+                        <label for="app-args">Zusätzliche Argumente <span class="label-opt">(Optional)</span></label>
                         <input type="text" id="app-args" placeholder="z.B. --no-sandbox">
                     </div>
                     <div class="form-actions">
                         <button class="btn btn-secondary" onclick="resetForm()">Abbrechen</button>
-                        <button class="btn btn-primary" onclick="startInstall()">Installieren</button>
+                        <button class="btn btn-primary" onclick="startInstall()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                            Jetzt installieren
+                        </button>
                     </div>
                 </div>
             </section>
 
             <!-- Apps Section -->
-            <section id="section-apps" class="hidden">
-                <header>
-                    <h2>Installierte Apps</h2>
-                    <p>Verwalte deine über diesen Installer installierten AppImages.</p>
+            <section id="section-apps" class="section hidden">
+                <header class="sec-header">
+                    <h2>Meine Apps</h2>
+                    <p>Alle AppImages, die du über AppInstall verwaltest.</p>
                 </header>
                 <div id="apps-list" class="apps-grid">
-                    <!-- Apps will be injected here -->
-                    <div class="loading">Lade Apps...</div>
+                    <div class="loading-state">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="spin"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="4.93" x2="19.07" y2="7.76"/></svg>
+                        <span>Apps werden geladen…</span>
+                    </div>
                 </div>
             </section>
 
             <!-- Settings Section -->
-            <section id="section-settings" class="hidden">
-                <header>
+            <section id="section-settings" class="section hidden">
+                <header class="sec-header">
                     <h2>Einstellungen</h2>
-                    <p>Passe den Installer an deine Bedürfnisse an.</p>
+                    <p>Passe den Installer an dein System an.</p>
                 </header>
-                <div class="card settings-card">
-                    <div class="setting-item">
+                <div class="settings-list">
+                    <div class="setting-row">
                         <div class="setting-info">
                             <h4>Desktop-Icon</h4>
-                            <p>Immer ein Icon auf dem Desktop erstellen</p>
+                            <p>Zusätzlich zum App-Menü immer ein Icon auf dem Schreibtisch platzieren</p>
                         </div>
                         <label class="switch">
                             <input type="checkbox" id="set-desktop-icon">
                             <span class="slider"></span>
                         </label>
                     </div>
-                    <div class="setting-item">
+                    <div class="setting-row">
                         <div class="setting-info">
                             <h4>Desktop-Pfad</h4>
-                            <p id="current-desktop-path">/home/user/Schreibtisch</p>
+                            <p id="current-desktop-path" class="monospace">/home/user/Schreibtisch</p>
                         </div>
-                        <button class="btn btn-outline" onclick="pickDesktopFolder()">Ändern</button>
+                        <button class="btn btn-outline" onclick="pickDesktopFolder()">Ordner ändern</button>
                     </div>
-                    <div class="setting-item">
+                    <div class="setting-row">
                         <div class="setting-info">
                             <h4>Icons extrahieren</h4>
-                            <p>Icons automatisch aus dem AppImage ziehen</p>
+                            <p>Icons automatisch aus der AppImage-Datei entpacken <span class="label-opt">(Empfohlen)</span></p>
                         </div>
                         <label class="switch">
-                            <input type="checkbox" id="set-no-extract" onclick="toggleExtractIcon(this)">
+                            <input type="checkbox" id="set-no-extract" checked>
                             <span class="slider"></span>
                         </label>
                     </div>
-                    <div class="form-actions">
-                        <button class="btn btn-primary" onclick="saveSettings()">Speichern</button>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h4>Autostart</h4>
+                            <p>Installierte Apps beim Systemstart automatisch registrieren</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="set-autostart">
+                            <span class="slider"></span>
+                        </label>
                     </div>
+                </div>
+                <div class="form-actions" style="margin-top: 20px; justify-content: flex-end;">
+                    <button class="btn btn-primary" onclick="saveSettings()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                        Einstellungen speichern
+                    </button>
                 </div>
             </section>
         </main>
     </div>
 
-    <!-- Notifications -->
     <div id="toast" class="toast hidden"></div>
 
     <script src="main.js"></script>

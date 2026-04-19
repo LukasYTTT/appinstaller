@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	CurrentVersion = "v1.0.1"
+	CurrentVersion = "v2.0.1"
 	GitHubRepo     = "LukasYTTT/appinstaller"
 )
 
