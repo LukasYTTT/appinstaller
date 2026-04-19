@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	CurrentVersion = "v2.0.1"
+	CurrentVersion = "v2.0.2"
 	GitHubRepo     = "LukasYTTT/appinstaller"
 )
 
@@ -111,4 +111,24 @@ func CheckUpdate() {
 
 	// Success! Clean up the old binary.
 	os.Remove(backupPath)
+}
+
+// GetUpdateVersion checks GitHub for a newer version without downloading it.
+// Returns the tag name if an update is available, otherwise returns an empty string.
+func GetUpdateVersion() string {
+	resp, err := http.Get(fmt.Sprintf("https://api.github.com/repos/%s/releases/latest", GitHubRepo))
+	if err != nil || resp.StatusCode != 200 {
+		return ""
+	}
+	defer resp.Body.Close()
+
+	var release githubRelease
+	if err := json.NewDecoder(resp.Body).Decode(&release); err != nil {
+		return ""
+	}
+
+	if release.TagName > CurrentVersion {
+		return release.TagName
+	}
+	return ""
 }

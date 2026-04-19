@@ -88,3 +88,7 @@ func (a *App) SelectFolder() string {
 	}
 	return strings.TrimSpace(string(output))
 }
+
+func (a *App) CheckForUpdates() string {
+	return GetUpdateVersion()
+}

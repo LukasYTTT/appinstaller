@@ -1,11 +1,41 @@
 let currentFile = "";
 let config = {};
 
-// Initialization
 document.addEventListener('DOMContentLoaded', async () => {
     await refreshConfig();
     await refreshAppsList();
+
+    // Show update banner if a new version is available
+    const newVersion = await window.CheckForUpdates().catch(() => "");
+    if (newVersion) {
+        showUpdateBanner(newVersion);
+    }
 });
+
+function showUpdateBanner(version) {
+    const banner = document.createElement('div');
+    banner.style.background = 'rgba(138, 43, 226, 0.2)';
+    banner.style.border = '1px solid var(--accent)';
+    banner.style.color = 'white';
+    banner.style.padding = '14px 20px';
+    banner.style.borderRadius = 'var(--radius-sm)';
+    banner.style.marginBottom = '24px';
+    banner.style.display = 'flex';
+    banner.style.justifyContent = 'space-between';
+    banner.style.alignItems = 'center';
+    banner.innerHTML = `
+        <div style="font-size: 13.5px;">
+            <strong style="color: #a09af0;">Update verfügbar!</strong> Eine neue Version (<b>${version}</b>) wurde veröffentlicht.<br>
+            <span style="opacity: 0.8; font-size: 12px;">Bitte aktualisiere AppInstall über deinen Paketmanager (z.B. <code>yay -Syu</code>).</span>
+        </div>
+        <button class="btn btn-outline" style="padding: 6px 12px;" onclick="this.parentElement.remove()">Verstanden</button>
+    `;
+    
+    // Insert at the top of the currently active section instead of .content, 
+    // so it's inside the max-width container natively.
+    const installSec = document.getElementById('section-install');
+    installSec.insertBefore(banner, installSec.firstChild);
+}
 
 async function refreshConfig() {
     config = await window.GetConfig();

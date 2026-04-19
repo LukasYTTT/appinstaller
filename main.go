@@ -353,6 +353,7 @@ func launchGUI() {
 	w.Bind("GetConfig", app.GetConfig)
 	w.Bind("SaveConfig", app.SaveConfig)
 	w.Bind("SelectFolder", app.SelectFolder)
+	w.Bind("CheckForUpdates", app.CheckForUpdates)
 
 	w.Navigate(url)
 	w.Run()
