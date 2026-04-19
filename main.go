@@ -18,7 +18,7 @@ import (
 	"github.com/webview/webview_go"
 )
 
-//go:embed frontend/*
+//go:embed frontend
 var frontendAssets embed.FS
 
 const desktopTemplate = `[Desktop Entry]
