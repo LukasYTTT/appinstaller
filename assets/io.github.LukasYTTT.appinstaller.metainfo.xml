@@ -3,17 +3,17 @@
   <id>io.github.LukasYTTT.appinstaller</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT</project_license>
-  <name>AppInstall</name>
+  <name>AppInstaller</name>
   <summary>Modern AppImage Installer and Manager</summary>
   <summary xml:lang="de">Moderner AppImage-Installer und Manager</summary>
   
   <description>
     <p>
-      AppInstall is a user-friendly application designed to integrate AppImages seamlessly into your Linux desktop. 
+      AppInstaller is a user-friendly application designed to integrate AppImages seamlessly into your Linux desktop. 
       It handles desktop entries, icon extraction, and provides a clean management interface.
     </p>
     <p xml:lang="de">
-      AppInstall ist eine benutzerfreundliche Anwendung, um AppImages nahtlos in deinen Linux-Desktop zu integrieren. 
+      AppInstaller ist eine benutzerfreundliche Anwendung, um AppImages nahtlos in deinen Linux-Desktop zu integrieren. 
       Es kümmert sich um Startmenü-Einträge, Icon-Extraktion und bietet eine saubere Verwaltungsoberfläche.
     </p>
     <ul>

@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=AppInstall
+Name=AppInstaller
 Comment=AppImage Installer and Manager
 Exec=env WEBKIT_DISABLE_DMABUF_RENDERER=1 appinstall
 Icon=system-software-install

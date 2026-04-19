@@ -342,7 +342,7 @@ func launchGUI() {
 	defer w.Destroy()
 	app.w = w
 
-	w.SetTitle("AppInstall")
+	w.SetTitle("AppInstaller")
 	w.SetSize(900, 650, webview.HintNone)
 
 	// Bind Go methods to JS
