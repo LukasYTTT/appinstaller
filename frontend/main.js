@@ -27,7 +27,8 @@ async function refreshAppsList() {
 
     list.innerHTML = '';
     apps.forEach(app => {
-        const iconSrc = app.IconPath ? `file://${app.IconPath}` : 'icon-placeholder.png';
+        const iconName = app.IconPath ? app.IconPath.split('/').pop() : '';
+        const iconSrc = iconName ? `/icons/${iconName}` : 'icon-placeholder.png';
         const card = document.createElement('div');
         card.className = 'app-card';
         card.innerHTML = `

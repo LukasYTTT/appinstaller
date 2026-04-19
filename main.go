@@ -323,8 +323,15 @@ func launchGUI() {
 	port := listener.Addr().(*net.TCPAddr).Port
 	url := fmt.Sprintf("http://127.0.0.1:%d/index.html", port)
 
+	mux := http.NewServeMux()
+	mux.Handle("/", http.FileServer(http.FS(subFS)))
+	
+	// Server local icons to bypass "Not allowed to load local resource"
+	m := NewManager()
+	mux.Handle("/icons/", http.StripPrefix("/icons/", http.FileServer(http.Dir(m.IconsDir))))
+
 	server := &http.Server{
-		Handler: http.FileServer(http.FS(subFS)),
+		Handler: mux,
 	}
 	go server.Serve(listener)
 
