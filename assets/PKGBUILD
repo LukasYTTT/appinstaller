@@ -1,6 +1,6 @@
 # Maintainer: LukasYTTT <https://github.com/LukasYTTT>
 pkgname=appinstall
-pkgver=2.0.6
+pkgver=2.0.7
 pkgrel=1
 pkgdesc="A modern GUI for installing and managing AppImages."
 arch=('x86_64')
@@ -23,6 +23,12 @@ prepare() {
 build() {
   cd "appinstaller-$pkgver"
   make
+  # Verifiziere das Binary: Muss gegen webkit2gtk-4.1 gelinkt sein
+  if ! ldd appinstall | grep -q "libwebkit2gtk-4.1.so"; then
+    echo "FEHLER: Binary wurde fälschlicherweise gegen WebKitGTK 4.0 gelinkt!"
+    ldd appinstall | grep webkit
+    exit 1
+  fi
 }
 
 package() {
