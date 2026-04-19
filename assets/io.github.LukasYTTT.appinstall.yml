@@ -20,7 +20,7 @@ modules:
     build-commands:
       - go build -o appinstall .
       - install -Dm755 appinstall /app/bin/appinstall
-      - install -Dm644 assets/appinstall.desktop /app/share/applications/io.github.LukasYTTT.appinstall.desktop
+      - install -Dm644 assets/io.github.LukasYTTT.appinstall.desktop /app/share/applications/io.github.LukasYTTT.appinstall.desktop
       - install -Dm644 assets/io.github.LukasYTTT.appinstall.metainfo.xml /app/share/metainfo/io.github.LukasYTTT.appinstall.metainfo.xml
     sources:
       - type: git

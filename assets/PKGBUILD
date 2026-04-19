@@ -19,6 +19,6 @@ build() {
 package() {
   cd "$pkgname-$pkgver"
   install -Dm755 appinstall "$pkgdir/usr/bin/appinstall"
-  install -Dm644 assets/appinstall.desktop "$pkgdir/usr/share/applications/appinstall.desktop"
+  install -Dm644 "assets/io.github.LukasYTTT.appinstall.desktop" "$pkgdir/usr/share/applications/io.github.LukasYTTT.appinstall.desktop"
   install -Dm644 "assets/io.github.LukasYTTT.appinstall.metainfo.xml" "$pkgdir/usr/share/metainfo/io.github.LukasYTTT.appinstall.metainfo.xml"
 }
