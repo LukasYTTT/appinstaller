@@ -230,7 +230,19 @@ func (m *Manager) Install(appImagePath, customName, customDesc, customIcon, cust
 		}
 		iconPath = absIcon
 	} else if !m.NoExtractIcon {
-		iconPath = m.extractIcon(absAppImage, appName)
+		var info appImageInfo
+		iconPath = m.extractIcon(absAppImage, appName, &info)
+		if info.Found {
+			if customName == "" && info.Name != "" {
+				appName = info.Name
+			}
+			if customDesc == "" && info.Comment != "" {
+				description = info.Comment
+			}
+			if customCategories == "" && info.Categories != "" {
+				customCategories = info.Categories
+			}
+		}
 	}
 	if iconPath == "" {
 		iconPath = "application-x-executable"
@@ -544,10 +556,18 @@ func runUninstall(nameFlag *string, listFlag, dryRun *bool) {
 }
 
 // ---------------------------------------------------------------------------
-// Icon-Extraktion
+// AppImage Info & Icon Extraction
 // ---------------------------------------------------------------------------
 
-func (m *Manager) extractIcon(appImagePath, appName string) string {
+type appImageInfo struct {
+	Name       string
+	Icon       string
+	Comment    string
+	Categories string
+	Found      bool
+}
+
+func (m *Manager) extractIcon(appImagePath, appName string, info *appImageInfo) string {
 	if m.DryRun {
 		return ""
 	}
@@ -569,6 +589,34 @@ func (m *Manager) extractIcon(appImagePath, appName string) string {
 	}
 
 	squashfsRoot := filepath.Join(tmpDir, "squashfs-root")
+
+	// Parse internal desktop file if requested
+	if info != nil {
+		matches, _ := filepath.Glob(filepath.Join(squashfsRoot, "*.desktop"))
+		if len(matches) > 0 {
+			data, err := os.ReadFile(matches[0])
+			if err == nil {
+				info.Found = true
+				for _, line := range strings.Split(string(data), "\n") {
+					line = strings.TrimSpace(line)
+					if strings.HasPrefix(line, "Name=") {
+						info.Name = strings.TrimPrefix(line, "Name=")
+					} else if strings.HasPrefix(line, "Icon=") {
+						info.Icon = strings.TrimPrefix(line, "Icon=")
+					} else if strings.HasPrefix(line, "Comment=") {
+						info.Comment = strings.TrimPrefix(line, "Comment=")
+					} else if strings.HasPrefix(line, "Categories=") {
+						info.Categories = strings.TrimPrefix(line, "Categories=")
+					}
+				}
+			}
+		}
+	}
+
+	preferredIcon := ""
+	if info != nil && info.Icon != "" {
+		preferredIcon = info.Icon
+	}
 
 	type iconCandidate struct {
 		path  string
@@ -592,6 +640,17 @@ func (m *Manager) extractIcon(appImagePath, appName string) string {
 		matches, _ := filepath.Glob(sp.pattern)
 		for _, match := range matches {
 			score := sp.base
+			
+			// Priority bonus for preferred icon name
+			if preferredIcon != "" {
+				baseName := strings.TrimSuffix(filepath.Base(match), filepath.Ext(match))
+				if strings.EqualFold(baseName, preferredIcon) {
+					score += 200
+				}
+			} else if strings.Contains(strings.ToLower(match), strings.ToLower(appName)) {
+				score += 20
+			}
+
 			for _, sizeBonus := range []struct {
 				s     string
 				bonus int
