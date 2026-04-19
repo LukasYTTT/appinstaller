@@ -1,0 +1,27 @@
+app-id: io.github.LukasYTTT.appinstall
+runtime: org.gnome.Platform
+runtime-version: '45'
+sdk: org.gnome.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.golang
+command: appinstall
+finish-args:
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+  - --share=network
+  - --filesystem=home
+  - --filesystem=xdg-run/appimage:create
+  - --talk-name=org.freedesktop.Notifications
+modules:
+  - name: appinstall
+    buildsystem: simple
+    build-commands:
+      - go build -o appinstall .
+      - install -Dm755 appinstall /app/bin/appinstall
+      - install -Dm644 assets/appinstall.desktop /app/share/applications/io.github.LukasYTTT.appinstall.desktop
+    sources:
+      - type: git
+        url: https://github.com/LukasYTTT/appinstaller.git
+        tag: v1.0.0

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=AppInstall
+Comment=AppImage Installer and Manager
+Exec=env WEBKIT_DISABLE_DMABUF_RENDERER=1 appinstall
+Icon=system-software-install
+Type=Application
+Categories=System;Utility;Settings;
+Keywords=AppImage;Install;Manage;
+Terminal=false
+StartupNotify=true

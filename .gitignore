@@ -1,0 +1,22 @@
+# Binaries
+appinstall
+appimage-manager-gui
+bin/
+
+# OS generated
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Go
+*.out
+*.test
+vendor/
+
+# User data
+config.json
+*.log
