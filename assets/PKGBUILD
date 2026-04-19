@@ -1,15 +1,24 @@
 # Maintainer: LukasYTTT <https://github.com/LukasYTTT>
 pkgname=appinstall
-pkgver=2.0.5
+pkgver=2.0.6
 pkgrel=1
 pkgdesc="A modern GUI for installing and managing AppImages."
 arch=('x86_64')
 url="https://github.com/LukasYTTT/appinstaller"
 license=('MIT')
 depends=('webkit2gtk-4.1' 'gtk3' 'zenity')
-makedepends=('go')
+makedepends=('go' 'make' 'pkgconf')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/LukasYTTT/appinstaller/archive/refs/tags/v$pkgver.tar.gz")
 sha256sums=('SKIP')
+
+prepare() {
+  cd "appinstaller-$pkgver"
+  # Verifiziere, dass der Shim korrekt funktioniert (muss -lwebkit2gtk-4.1 enthalten)
+  if ! PKG_CONFIG_PATH="./pkgconfig" pkg-config --libs webkit2gtk-4.0 | grep -q "webkit2gtk-4.1"; then
+    echo "FEHLER: pkg-config Shim funktioniert nicht oder wird nicht gefunden!"
+    exit 1
+  fi
+}
 
 build() {
   cd "appinstaller-$pkgver"
