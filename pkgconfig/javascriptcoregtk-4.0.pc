@@ -1,0 +1,4 @@
+Name: JavaScriptCore GTK
+Description: JavaScript engine for WebKitGTK (Shim for 4.0)
+Version: 2.40.5
+Requires: javascriptcoregtk-4.1
