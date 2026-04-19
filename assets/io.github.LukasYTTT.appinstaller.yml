@@ -1,6 +1,6 @@
 app-id: io.github.LukasYTTT.appinstaller
 runtime: org.gnome.Platform
-runtime-version: '47'
+runtime-version: '49'
 sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.golang
@@ -12,10 +12,11 @@ finish-args:
   - --device=dri
   - --share=network
   - --filesystem=xdg-download
-  - --filesystem=xdg-data/applications:create
-  - --filesystem=xdg-data/icons:create
+  - --filesystem=xdg-data/applications:rw
+  - --filesystem=xdg-data/icons:rw
   - --filesystem=xdg-run/appimage:create
   - --talk-name=org.freedesktop.Notifications
+  - --talk-name=org.freedesktop.Flatpak
 modules:
   - name: appinstall
     buildsystem: simple

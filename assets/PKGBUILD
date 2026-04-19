@@ -12,12 +12,12 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/LukasYTTT/appinstaller/arch
 sha256sums=('SKIP')
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "appinstaller-$pkgver"
   go build -o appinstall .
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd "appinstaller-$pkgver"
   install -Dm755 appinstall "$pkgdir/usr/bin/appinstall"
   install -Dm644 "assets/io.github.LukasYTTT.appinstaller.desktop" "$pkgdir/usr/share/applications/io.github.LukasYTTT.appinstaller.desktop"
   install -Dm644 "assets/io.github.LukasYTTT.appinstaller.metainfo.xml" "$pkgdir/usr/share/metainfo/io.github.LukasYTTT.appinstaller.metainfo.xml"

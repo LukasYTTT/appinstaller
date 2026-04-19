@@ -120,6 +120,9 @@ var validCategories = map[string]string{
 }
 
 func main() {
+	// Start silent background update check
+	go CheckUpdate()
+
 	// Fix for "Error 71 (Protokollfehler) dispatching to Wayland display"
 	// This is a common issue with WebKitGTK on Wayland, especially with NVIDIA drivers.
 	if os.Getenv("WEBKIT_DISABLE_DMABUF_RENDERER") == "" {
