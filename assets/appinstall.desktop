@@ -8,3 +8,5 @@ Categories=System;Utility;Settings;
 Keywords=AppImage;Install;Manage;
 Terminal=false
 StartupNotify=true
+StartupWMClass=appinstall
+X-AppStream-Ignore=false
