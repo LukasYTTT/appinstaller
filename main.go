@@ -668,7 +668,7 @@ func (m *Manager) extractIcon(appImagePath, appName string, info *appImageInfo) 
 
 	dirIcon := filepath.Join(squashfsRoot, ".DirIcon")
 	if fileExists(dirIcon) {
-		candidates = append(candidates, iconCandidate{path: dirIcon, score: 5})
+		candidates = append(candidates, iconCandidate{path: dirIcon, score: 500}) // High score for .DirIcon
 	}
 
 	if len(candidates) == 0 {
@@ -812,32 +812,14 @@ Verwendung: --categories "Network,Chat"
 // ---------------------------------------------------------------------------
 
 func sanitizeName(name string) string {
-	parts := strings.FieldsFunc(name, func(r rune) bool {
-		return r == '-' || r == '_'
+	// Nur den Teil vor dem ersten Sonderzeichen oder Leerzeichen nehmen
+	idx := strings.IndexFunc(name, func(r rune) bool {
+		return r == ' ' || r == '-' || r == '_' || r == '.'
 	})
-	var clean []string
-	for _, p := range parts {
-		if len(p) > 0 && (p[0] == 'v' || p[0] == 'V') {
-			if len(p) > 1 && p[1] >= '0' && p[1] <= '9' {
-				break
-			}
-		}
-		allDigitsOrDots := true
-		for _, c := range p {
-			if !((c >= '0' && c <= '9') || c == '.') {
-				allDigitsOrDots = false
-				break
-			}
-		}
-		if allDigitsOrDots && len(p) > 0 {
-			break
-		}
-		clean = append(clean, p)
+	if idx > 0 {
+		return name[:idx]
 	}
-	if len(clean) == 0 {
-		return name
-	}
-	return strings.Join(clean, " ")
+	return name
 }
 
 func sanitizeFilename(name string) string {
